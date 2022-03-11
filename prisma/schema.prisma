@@ -11,17 +11,17 @@ datasource db {
 }
 
 model product {
-  id Int @id
-  name String @db.VarChar(255)
-  url_image String?
-  price Float @db.Float
-  discount Int
+  id           Int      @id
+  name         String   @db.VarChar(255)
+  url_image    String?
+  price        Float    @db.Float
+  discount     Int
   categoryName category @relation(fields: [category], references: [id])
-  category Int
+  category     Int
 }
 
 model category {
-  id Int @id
-  name String @db.VarChar(255)
+  id       Int       @id
+  name     String    @db.VarChar(255)
   products product[]
 }
