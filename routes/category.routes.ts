@@ -4,9 +4,11 @@ import { Prisma, PrismaClient } from "@prisma/client";
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get("/api/products", async (req, res) => {
-	const products = await prisma.product.findMany();
-	res.json(products);
+router.get("/api/category", async (req, res) => {
+	const category = await prisma.category.findMany({
+		include: { products: true },
+	});
+	res.json(category);
 });
 
 export default router;
