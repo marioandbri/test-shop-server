@@ -17,5 +17,16 @@ router.get("/api/products", (req, res) => __awaiter(void 0, void 0, void 0, func
     const products = yield prisma.product.findMany();
     res.json(products);
 }));
+router.get("/api/products/search=:query", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req.params.query;
+    const results = yield prisma.product.findMany({
+        where: {
+            name: {
+                contains: query,
+            },
+        },
+    });
+    res.json(results);
+}));
 exports.default = router;
 //# sourceMappingURL=products.routes.js.map
