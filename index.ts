@@ -11,15 +11,17 @@ const prisma = new PrismaClient();
 	const app = express();
 	app.use(
 		cors({
-			origin: "http://localhost:8080",
+			origin: "*",
 		})
 	);
-	app.use(morgan("dev"));
+	if (process.env.NODE_ENV === "development") {
+		app.use(morgan("dev"));
+	}
 	app.use(Products);
 	app.use(Category);
-	app.set("port", 4000);
+	app.set("port", process.env.PORT || 4000);
 	app.listen(app.get("port"), () => {
-		console.log("server en: http://localhost:4000");
+		console.log("server en: http://localhost:" + app.get("port"));
 	});
 })()
 	.catch((e: Error) => {

@@ -23,14 +23,16 @@ const prisma = new client_1.PrismaClient();
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         app.use((0, cors_1.default)({
-            origin: "http://localhost:8080",
+            origin: "*",
         }));
-        app.use((0, morgan_1.default)("dev"));
+        if (process.env.NODE_ENV === "development") {
+            app.use((0, morgan_1.default)("dev"));
+        }
         app.use(products_routes_1.default);
         app.use(category_routes_1.default);
-        app.set("port", 4000);
+        app.set("port", process.env.PORT || 4000);
         app.listen(app.get("port"), () => {
-            console.log("server en: http://localhost:4000");
+            console.log("server en: http://localhost:" + app.get("port"));
         });
     });
 })()
